@@ -70,16 +70,48 @@ namespace Checkmeclass
             }
            public static Zombie prot;
         }
-        
 
+        public class Undead : Monster
+        {
+            public string name = "Ya uze umer naxui";
+            /* public Monster clone()
+             {
+                 return new this;
+             }*/
+            override public Monster clone()
+            {
+                return new Undead();
+            }
+            /* public Zombie() 
+             {
+                 addprot(Instance.Zombie,this);
+             }*/
+            public Undead() { }
+            public Undead(Dummy a)
+            {
+                addprot(Instance.undead, this);
+            }
+            override public void Stats()
+            {
+                Console.WriteLine($"{name}");
+            }
+            public static Undead prot;
+        }
 
         static void Main(string[] args)
         {
-
+            List<Monster> da = new List<Monster>();
             Zombie.prot = new Zombie(new Dummy());
-
+            Undead.prot = new Undead(new Dummy());
             Monster p1 = Monster.getprot(Instance.Zombie);
             p1.Stats();
+            //soglasen
+            da.Add(Monster.getprot(Instance.Zombie));
+            da.Add(Monster.getprot(Instance.undead));
+            foreach(Monster s in da)
+            {//хочу умереть рили
+                s.Stats();
+            }
             // p1.addprot(Instance.Zombie, p);
             //map = new Dictionary<Instance, Monster>();
            
