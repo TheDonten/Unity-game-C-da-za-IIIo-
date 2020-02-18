@@ -1,0 +1,90 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Checkmeclass
+{
+    public class Program
+    {
+        
+        public enum Instance { Zombie, undead };
+
+        public static Dictionary<Instance, Monster> map = new Dictionary<Instance, Monster>();
+        public class Dummy { }
+        public class Monster
+        {
+            public int hp;
+            public int damage;
+            public string name = "heh";
+            virtual public Monster clone()
+            {
+                return new Monster();
+            }
+        
+
+          
+             virtual public void Stats() {
+                Console.WriteLine($"{name}");
+            }
+           
+            public static Monster getprot(Instance id)
+            {
+                if (map.ContainsKey(id))
+                {
+                    return map[id].clone();
+                }
+                return null;
+            }
+             public void addprot(Instance id, Monster prot)
+            {
+                
+                map.Add(id, prot);
+            }
+        }
+
+        public class Zombie : Monster
+        {
+            public string name = "Gavno ebat";
+           /* public Monster clone()
+            {
+                return new this;
+            }*/
+           override public Monster clone()
+            {
+                return new Zombie();
+            }
+           /* public Zombie() 
+            {
+                addprot(Instance.Zombie,this);
+            }*/
+            public Zombie() { }
+            public Zombie(Dummy a)
+            {
+                addprot(Instance.Zombie, this);
+            }
+            override public void Stats()
+            {
+                Console.WriteLine($"{name}");
+            }
+           public static Zombie prot;
+        }
+        
+
+
+        static void Main(string[] args)
+        {
+
+            Zombie.prot = new Zombie(new Dummy());
+
+            Monster p1 = Monster.getprot(Instance.Zombie);
+            p1.Stats();
+            // p1.addprot(Instance.Zombie, p);
+            //map = new Dictionary<Instance, Monster>();
+           
+        }
+
+
+    }
+}
